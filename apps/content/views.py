@@ -18,7 +18,7 @@ DEFAULT_HOME_CONTEXT = {
     "home_background": None,
     "home_site_title": "zeroinnightcity",
     "home_owner_name": "Wentong Zou",
-    "home_tagline": "a place to talk",
+    "home_tagline": "a place to showcase parts of my ordinary life",
 }
 
 DEFAULT_ABOUT_CONTEXT = {
