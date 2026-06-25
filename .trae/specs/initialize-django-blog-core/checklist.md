@@ -1,7 +1,0 @@
-- [x] 已提供符合 Django 最佳实践的 Step 1 项目目录结构建议
-- [x] 已明确 `settings.py` 需要配置 `MEDIA_URL` 与 `MEDIA_ROOT`
-- [x] 已定义通用 `MediaItem` 模型所需核心字段与用途
-- [x] 已定义 `Fragment` 模型所需图片、时间、地点标签等基础字段
-- [x] 已定义 `Post` 模型以支持 Thoughts 文字内容与 Markdown 扩展
-- [x] 已说明 Django Admin 后续接入的管理目标与模型可管理性要求
-- [x] 已明确本轮范围仅覆盖 Step 1，不提前实现视图、路由与模板

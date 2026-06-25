@@ -1,7 +1,0 @@
-- [x] 已在项目根路由中通过 `include()` 分发内容应用流量
-- [x] 已保留 `admin` 路由与开发环境媒体访问配置
-- [x] 已新增内容应用 `urls.py` 并配置首页、列表页、详情页与 About 路径
-- [x] 已在 `views.py` 中实现首页重定向、Music/Films 列表与详情视图
-- [x] 已在 `views.py` 中实现 `fragments_list`、`thoughts_list` 与 `about_view`
-- [x] 已验证路由配置与视图查询逻辑通过 Django 检查
-- [x] 已明确本轮范围仅覆盖 Step 2，不提前实现 Step 3 模板样式
