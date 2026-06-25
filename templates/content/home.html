@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<section class="flex min-h-screen flex-col" data-home-hero="fullscreen">
+    <figure
+        class="relative isolate min-h-screen overflow-hidden bg-[#d8e3ee]"
+        aria-label="首页主视觉图"
+        {% if home_background %}
+        style="background-image: url('{{ home_background.url }}'); background-size: cover; background-position: center;"
+        {% else %}
+        style="background-image: radial-gradient(circle at top left, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0) 30%), linear-gradient(138deg, #f7fafd 0%, #d9e4ef 42%, #94a8be 100%);"
+        {% endif %}
+    >
+        <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(28, 42, 58, 0.26)_0%,rgba(28, 42, 58, 0.08)_24%,rgba(28, 42, 58, 0.03)_48%,rgba(28, 42, 58, 0.12)_100%)]"></div>
+        <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(252,253,255,0.24)_0%,rgba(252,253,255,0.04)_22%,rgba(28, 42, 58, 0.18)_100%)]"></div>
+        <figcaption class="sr-only">
+        </figcaption>
+    </figure>
+</section>
+{% endblock %}

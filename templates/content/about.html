@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }} | zeroinnightcity{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-5xl">
+    <div class="border border-sage bg-white px-6 py-8 shadow-paper sm:px-8 sm:py-10 lg:px-12">
+        <p class="font-english text-[0.82rem] font-light uppercase tracking-[0.42em] text-moss/78">个人资料</p>
+        <div class="mt-6 grid gap-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(16rem,0.65fr)]">
+            <article>
+                <div class="space-y-5 border-b border-sage/80 pb-8">
+                    <div>
+                        <p class="font-english text-[0.82rem] font-light uppercase tracking-[0.36em] text-moss/78">Name</p>
+                        <h1 class="font-display mt-3 text-4xl font-light uppercase leading-[0.96] tracking-[0.12em] text-ink sm:text-5xl">
+                            {{ about_name }}
+                        </h1>
+                    </div>
+                    <div>
+                        <p class="font-english text-[0.82rem] font-light uppercase tracking-[0.36em] text-moss/78">aka</p>
+                        <p class="mt-3 text-lg font-light leading-8 text-ink/78 sm:text-xl">
+                            {{ about_nickname }}
+                        </p>
+                    </div>
+                    {% if about_region %}
+                    <div>
+                        <p class="font-english text-[0.82rem] font-light uppercase tracking-[0.36em] text-moss/78">Region</p>
+                        <p class="mt-3 text-base font-light leading-8 text-ink/78 sm:text-[1.02rem]">
+                            {{ about_region }}
+                        </p>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="pt-8">
+                    <p class="font-english text-[0.82rem] font-light uppercase tracking-[0.36em] text-moss/78">Bio</p>
+                    <div class="prose prose-p:my-0 mt-4 max-w-none space-y-4 text-[0.98rem] font-light leading-8 text-ink/78 sm:text-[1.02rem]">
+                        {{ about_bio|linebreaks }}
+                    </div>
+                </div>
+
+                {% if elsewhere_links %}
+                <div class="mt-10 border-t border-sage/80 pt-8">
+                    <p class="font-english text-[0.82rem] font-light uppercase tracking-[0.36em] text-moss/78">Elsewhere</p>
+                    <ul class="mt-4 divide-y divide-sage/75 border-y border-sage/75">
+                        {% for link in elsewhere_links %}
+                        <li>
+                            {% if link.is_plain_text %}
+                            <div class="flex items-center justify-between gap-4 px-1 py-4 text-ink/78">
+                                <span class="font-english text-[0.98rem] font-normal uppercase tracking-[0.2em]">{{ link.label }}</span>
+                                <span class="text-[0.95rem] font-light tracking-[0.03em] text-ink">{{ link.value }}</span>
+                            </div>
+                            {% else %}
+                            <a
+                                href="{{ link.url }}"
+                                target="_blank"
+                                rel="noreferrer"
+                                class="group flex items-center justify-between gap-4 px-1 py-4 text-ink/78 transition hover:text-ink"
+                            >
+                                <span class="font-english text-[0.98rem] font-normal uppercase tracking-[0.2em]">{{ link.label }}</span>
+                                <span class="font-english text-[0.76rem] uppercase tracking-[0.28em] text-moss/70 transition group-hover:text-moss">Visit</span>
+                            </a>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </article>
+
+            <aside class="border-t border-sage/80 pt-8 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
+                {% if about_avatar %}
+                <div class="border border-sage/90 bg-panel/65 p-4 shadow-sm">
+                    <p class="font-english text-[0.78rem] font-light uppercase tracking-[0.34em] text-moss/74">Portrait</p>
+                    <div class="mt-4 overflow-hidden border border-white/80 bg-white shadow-sm">
+                        <img
+                            src="{{ about_avatar.url }}"
+                            alt="{{ about_name }} 的个人资料头像"
+                            class="aspect-square w-full object-cover"
+                            loading="lazy"
+                        >
+                    </div>
+                </div>
+                {% endif %}
+            </aside>
+        </div>
+    </div>
+</section>
+{% endblock %}

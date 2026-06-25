@@ -1,0 +1,7 @@
+.aligned label,
+.aligned .form-row label,
+.aligned .form-row .fieldBox > label,
+.aligned .form-row .flex-container > label,
+.aligned .form-row div > label {
+    font-weight: 600 !important;
+}

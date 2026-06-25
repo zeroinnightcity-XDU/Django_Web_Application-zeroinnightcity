@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }} | zeroinnightcity{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-5xl space-y-9 sm:space-y-10">
+    <div class="border-b border-sage pb-8 sm:pb-10">
+        <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+            <div class="max-w-4xl">
+                <p class="font-english text-[0.82rem] font-light uppercase tracking-[0.42em] text-moss/78">博客</p>
+                <h1 class="font-display mt-4 text-4xl font-light uppercase leading-[0.94] tracking-[0.16em] text-ink sm:text-5xl lg:text-[3.7rem]">{{ page_title }}</h1>
+                <p class="mt-4 max-w-3xl text-[0.96rem] font-light leading-8 text-ink/68 sm:text-[1.01rem]">
+                    Time was but a notion forgotten by the moments…
+                </p>
+            </div>
+            <div class="inline-flex items-center gap-3 border-b border-sage pb-2 text-sm font-light text-ink/64">
+                <span class="font-english text-[0.82rem] uppercase tracking-[0.38em] text-moss/80">Entries</span>
+                <span class="font-display text-2xl leading-none text-ink">{{ items|length }}</span>
+            </div>
+        </div>
+    </div>
+
+    {% if items %}
+        <div class="space-y-5">
+            {% for item in items %}
+                <article class="group border border-sage bg-white px-5 py-6 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:border-moss/34 hover:bg-[#fbfcfe] hover:shadow-paper sm:px-7 sm:py-8">
+                    <header class="space-y-4">
+                        <div class="font-english flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.82rem] font-light uppercase tracking-[0.28em] text-moss/82">
+                            <span>{{ item.created_at|date:"Y.m.d" }}</span>
+                            <span>{{ item.weekday_label }}</span>
+                            <span>{{ item.word_count }} 字</span>
+                        </div>
+                        <h2 class="font-display text-[1.8rem] font-light uppercase leading-[0.96] tracking-[0.1em] text-ink sm:text-[2.15rem]">
+                            <a href="{% url 'content:thoughts-detail' item.pk %}" class="transition hover:text-moss">{{ item.title }}</a>
+                        </h2>
+                        {% if item.summary %}
+                            <p class="max-w-3xl text-[0.96rem] font-light leading-8 text-ink/68 sm:text-[1rem]">
+                                <a href="{% url 'content:thoughts-detail' item.pk %}" class="transition hover:text-ink">
+                                    {{ item.summary }}
+                                </a>
+                            </p>
+                        {% endif %}
+                    </header>
+                    <div class="mt-6 border-t border-sage pt-6 text-[0.96rem] font-light leading-8 text-ink/76 sm:text-[1rem]">{{ item.body|truncatewords:48|linebreaks }}</div>
+                    <div class="mt-5">
+                        <a
+                            href="{% url 'content:thoughts-detail' item.pk %}"
+                            class="font-english inline-flex items-center border-b border-moss/30 pb-1 text-[0.8rem] font-light uppercase tracking-[0.32em] text-moss/84 transition group-hover:border-moss group-hover:text-ink"
+                        >
+                            View Detail
+                        </a>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="border border-dashed border-sage bg-white/90 px-5 py-10 text-center text-sm font-light leading-7 text-ink/68">
+            还没有公开的文字记录。
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

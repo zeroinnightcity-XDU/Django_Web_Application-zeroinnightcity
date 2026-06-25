@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }} | zeroinnightcity{% endblock %}
+
+{% block content %}
+<section class="space-y-9 sm:space-y-10">
+    <div class="border-b border-sage pb-8 sm:pb-10">
+        <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+            <div class="max-w-4xl">
+                <p class="font-english text-[0.82rem] font-light uppercase tracking-[0.42em] text-moss/78">照片墙</p>
+                <h1 class="font-display mt-4 text-4xl font-light uppercase leading-[0.94] tracking-[0.16em] text-ink sm:text-5xl lg:text-[3.75rem]">{{ page_title }}</h1>
+                <p class="mt-4 max-w-3xl text-[0.96rem] font-light leading-8 text-ink/68 sm:text-[1.01rem]">
+                    <a
+                        href="https://open.spotify.com/track/7J9Vmy8RXPFY88reizJEwa"
+                        target="_blank"
+                        rel="noreferrer"
+                        class="transition hover:text-ink hover:underline underline-offset-4"
+                    >
+                        “🎵I'll just keep playing back~these fragments of time~Everywhere I go~these moments will shine🎵”
+                    </a>
+                </p>
+            </div>
+            <div class="inline-flex items-center gap-3 border-b border-sage pb-2 text-sm font-light text-ink/64">
+                <span class="font-english text-[0.82rem] uppercase tracking-[0.38em] text-moss/80">Frames</span>
+                <span class="font-display text-2xl leading-none text-ink">{{ items|length }}</span>
+            </div>
+        </div>
+    </div>
+
+    {% if items %}
+        <div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            {% for item in items %}
+                <article class="group relative overflow-hidden border border-sage bg-white shadow-sm transition-all duration-500 hover:-translate-y-1 hover:border-moss/38 hover:bg-[#fbfcfe] hover:shadow-paper">
+                    <a href="{% url 'content:fragments-detail' item.pk %}" class="block bg-panel">
+                        <img
+                            src="{{ item.image.url }}"
+                            alt="{{ item.title|default:item.location|default:'照片' }}"
+                            class="h-72 w-full object-cover transition duration-500 group-hover:scale-[1.03] sm:h-80"
+                        >
+                    </a>
+                    <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#243345]/34 via-[#f9fbfd]/0 to-transparent opacity-0 transition duration-500 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute inset-x-0 bottom-0 flex justify-end px-5 py-4 opacity-0 transition duration-500 group-hover:opacity-100 group-focus-within:opacity-100 sm:px-6">
+                        <a
+                            href="{% url 'content:fragments-detail' item.pk %}"
+                            aria-label="查看详情"
+                            class="font-english pointer-events-auto inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/55 text-[1rem] font-light text-white/92 transition hover:border-white hover:text-white"
+                        >
+                            <span aria-hidden="true">→</span>
+                        </a>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="border border-dashed border-sage bg-white/90 px-5 py-10 text-center text-sm font-light leading-7 text-ink/68">
+            还没有上传照片，请检查后重试。
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

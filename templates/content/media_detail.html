@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}{{ item.title }} | {{ page_title }}{% endblock %}
+
+{% block content %}
+<section class="space-y-9 sm:space-y-11">
+    <div class="flex flex-col gap-4 border-b border-sage pb-7 sm:flex-row sm:items-center sm:justify-between sm:pb-8">
+        {% if section_slug == "music" %}
+            <a
+                href="{% url 'content:music-list' %}"
+                class="font-english inline-flex w-fit items-center gap-2 border-b border-moss/35 pb-1 text-[0.8rem] font-light uppercase tracking-[0.34em] text-moss/82 transition-all duration-500 hover:-translate-x-1 hover:border-moss hover:text-ink"
+            >
+                <span aria-hidden="true">←</span>
+                <span>Back</span>
+            </a>
+        {% else %}
+            <a
+                href="{% url 'content:film-list' %}"
+                class="font-english inline-flex w-fit items-center gap-2 border-b border-moss/35 pb-1 text-[0.8rem] font-light uppercase tracking-[0.34em] text-moss/82 transition-all duration-500 hover:-translate-x-1 hover:border-moss hover:text-ink"
+            >
+                <span aria-hidden="true">←</span>
+                <span>Back</span>
+            </a>
+        {% endif %}
+        <p class="font-english text-[0.94rem] font-light uppercase tracking-[0.2em] text-moss">
+            {{ page_title }} / {{ item.creator }}
+        </p>
+    </div>
+
+    <article class="overflow-hidden border border-sage bg-white shadow-paper">
+        <div class="grid gap-0 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+            <div class="relative border-b border-sage bg-panel lg:border-b-0 lg:border-r">
+                <img
+                    src="{{ item.cover.url }}"
+                    alt="{{ item.title }}"
+                    class="h-full min-h-[24rem] w-full object-cover lg:min-h-[36rem]"
+                >
+                <div class="absolute bottom-4 right-4">
+                    <a
+                        href="{{ item.cover.url }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="font-english inline-flex items-center border border-white/55 bg-[#eef4f9]/84 px-4 py-2 text-[0.8rem] font-light uppercase tracking-[0.32em] text-ink shadow-sm backdrop-blur-sm transition hover:border-white hover:bg-white"
+                    >
+                        View Original
+                    </a>
+                </div>
+            </div>
+            <div class="flex flex-col gap-8 p-5 sm:p-7 lg:p-10">
+                <div class="space-y-5">
+                    <p class="font-english text-[0.8rem] font-light uppercase tracking-[0.4em] text-moss/78">
+                        {{ page_title }}
+                    </p>
+                    <div class="space-y-3">
+                        <h1 class="font-display text-[2.35rem] font-light uppercase leading-[0.9] tracking-[0.14em] text-ink sm:text-[3.2rem] lg:text-[3.75rem]">
+                            {% if item.external_url %}
+                                <a
+                                    href="{{ item.external_url }}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="transition hover:text-moss"
+                                >
+                                    {{ item.title }}
+                                </a>
+                            {% else %}
+                                {{ item.title }}
+                            {% endif %}
+                        </h1>
+                        <p class="font-english text-[0.98rem] font-light uppercase tracking-[0.2em] text-moss sm:text-[1rem]">
+                            {{ item.creator }}
+                        </p>
+                        {% if item.release_year %}
+                            <p class="font-english text-[0.92rem] font-light italic tracking-[0.18em] text-moss/56 sm:text-[0.96rem]">
+                                {{ item.release_year }}
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="space-y-6 border-y border-sage py-6">
+                    <div>
+                        <p class="font-english mb-3 text-[0.8rem] font-light uppercase tracking-[0.34em] text-moss/78">
+                            简介
+                        </p>
+                        <p class="max-w-2xl text-[0.97rem] font-light leading-8 text-ink/72 sm:text-[1.02rem]">
+                            {{ item.summary }}
+                        </p>
+                    </div>
+
+                    {% if item.body %}
+                        <div>
+                            <p class="font-english mb-3 text-[0.8rem] font-light uppercase tracking-[0.34em] text-moss/78">
+                                更多内容
+                            </p>
+                            <div class="space-y-4 text-[0.96rem] font-light leading-8 text-ink/76 sm:text-[1rem]">
+                                {{ item.body|linebreaks }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <p class="font-english text-[0.82rem] font-light uppercase tracking-[0.32em] text-moss/82">
+                        收录于 {{ item.created_at|date:"Y-m-d" }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </article>
+</section>
+{% endblock %}

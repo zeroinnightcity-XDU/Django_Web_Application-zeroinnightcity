@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}{{ item.title }} | {{ page_title }}{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-5xl space-y-9 sm:space-y-11">
+    <div class="flex flex-col gap-4 border-b border-sage pb-7 sm:flex-row sm:items-center sm:justify-between sm:pb-8">
+        <a
+            href="{% url 'content:thoughts-list' %}"
+            class="font-english inline-flex w-fit items-center gap-2 border-b border-moss/35 pb-1 text-[0.8rem] font-light uppercase tracking-[0.34em] text-moss/82 transition-all duration-500 hover:-translate-x-1 hover:border-moss hover:text-ink"
+        >
+            <span aria-hidden="true">←</span>
+            <span>Back</span>
+        </a>
+        <div class="font-english flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.82rem] font-light uppercase tracking-[0.28em] text-moss/82">
+            <span>{{ item.created_at|date:"Y.m.d" }}</span>
+            <span>{{ item.weekday_label }}</span>
+            <span>{{ item.word_count }} 字</span>
+        </div>
+    </div>
+
+    <article class="border border-sage bg-white px-5 py-7 shadow-paper sm:px-8 sm:py-10 lg:px-12">
+        <header class="border-b border-sage pb-8">
+            <p class="font-english text-[0.82rem] font-light uppercase tracking-[0.4em] text-moss/78">Thought Detail</p>
+            <h1 class="font-display mt-4 text-[2.4rem] font-light uppercase leading-[0.92] tracking-[0.12em] text-ink sm:text-[3rem] lg:text-[3.6rem]">
+                {{ item.title }}
+            </h1>
+            {% if item.summary %}
+                <p class="mt-5 max-w-3xl text-[0.98rem] font-light leading-8 text-ink/68 sm:text-[1.03rem]">{{ item.summary }}</p>
+            {% endif %}
+        </header>
+
+        <div class="mt-8 grid gap-3 text-[0.78rem] font-light uppercase tracking-[0.18em] text-moss sm:grid-cols-3">
+            <div class="border border-sage bg-panel/85 px-4 py-4">
+                <p class="font-english text-moss/80">发布日期</p>
+                <p class="mt-2 text-[0.95rem] tracking-[0.08em] text-ink">{{ item.created_at|date:"Y.m.d" }}</p>
+            </div>
+            <div class="border border-sage bg-panel/85 px-4 py-4">
+                <p class="font-english text-moss/80">星期</p>
+                <p class="mt-2 text-[0.95rem] tracking-[0.08em] text-ink">{{ item.weekday_label }}</p>
+            </div>
+            <div class="border border-sage bg-panel/85 px-4 py-4">
+                <p class="font-english text-moss/80">字数</p>
+                <p class="mt-2 text-[0.95rem] tracking-[0.08em] text-ink">{{ item.word_count }} 字</p>
+            </div>
+        </div>
+
+        <div class="mt-8 text-[1rem] font-light leading-8 text-ink/78 sm:text-[1.04rem]">
+            {{ item.body|linebreaks }}
+        </div>
+    </article>
+</section>
+{% endblock %}

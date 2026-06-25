@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{{ page_title|default:"Content" }}{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        mist: "#eef3f8",
+                        panel: "#f5f8fc",
+                        surface: "#ffffff",
+                        sage: "#d7e1eb",
+                        moss: "#70879c",
+                        ink: "#243242",
+                        line: "#becbd8"
+                    },
+                    fontFamily: {
+                        sans: ["Noto Sans SC", "system-ui", "sans-serif"],
+                        serif: ["Cormorant Garamond", "Noto Serif SC", "serif"],
+                        english: ["Barlow Semi Condensed", "Noto Sans SC", "sans-serif"],
+                        display: ["Barlow Semi Condensed", "Cormorant Garamond", "Noto Sans SC", "serif"]
+                    },
+                    boxShadow: {
+                        paper: "0 20px 48px rgba(102, 123, 148, 0.14)"
+                    }
+                }
+            }
+        };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #eef3f8;
+            background-image:
+                radial-gradient(circle at top left, rgba(255, 255, 255, 0.95), transparent 34%),
+                linear-gradient(180deg, rgba(232, 239, 247, 0.9) 0%, rgba(238, 243, 248, 0.98) 38%, #f9fbfd 100%);
+        }
+
+        .font-mixed-stable {
+            font-family: "Noto Sans SC", system-ui, sans-serif;
+        }
+
+        .font-english-ui {
+            font-family: "Barlow Semi Condensed", "Noto Sans SC", sans-serif;
+            letter-spacing: 0.1em;
+            font-weight: 400;
+        }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="{% if section_slug == 'home' %}bg-[#edf3f9]{% else %}bg-mist{% endif %} min-h-screen font-sans text-ink antialiased">
+    <div class="{% if section_slug == 'home' %}relative min-h-screen overflow-hidden{% else %}relative min-h-screen{% endif %}">
+        {% if section_slug == "home" %}
+            <header class="pointer-events-none absolute inset-x-0 top-0 z-20 px-4 py-4 sm:px-7 sm:py-7 lg:px-9">
+                <div
+                    data-home-nav="true"
+                    class="pointer-events-auto flex h-[calc(100vh-2rem)] max-h-[54rem] w-full max-w-[18.75rem] flex-col px-1 py-2 text-white sm:h-[calc(100vh-3.5rem)] sm:px-2 sm:py-3"
+                >
+                    <div data-home-brand="true" class="max-w-[15rem]">
+                        <p class="font-display text-[2.35rem] font-light uppercase leading-[0.92] tracking-[0.12em] text-white">
+                            {{ home_site_title }}
+                        </p>
+                        <p class="font-english mt-3 text-[0.72rem] uppercase tracking-[0.32em] text-white/72">
+                            {{ home_owner_name }}
+                        </p>
+                        <p class="mt-3 text-[0.92rem] leading-7 text-white/78">
+                            {{ home_tagline }}
+                        </p>
+                    </div>
+
+                    <nav aria-label="主导航" class="mt-8">
+                        <ul class="space-y-2.5 text-[0.95rem]">
+                            <li>
+                                <a
+                                    href="{% url 'content:music-list' %}"
+                                    data-nav-link
+                                    class="font-english inline-flex w-full items-center justify-between border border-white/28 bg-white/14 px-4 py-2.5 text-left text-[0.98rem] font-normal uppercase tracking-[0.18em] text-white/88 transition hover:border-white/44 hover:bg-white/22 hover:text-white"
+                                >
+                                    <span>Music</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="{% url 'content:film-list' %}"
+                                    data-nav-link
+                                    class="font-english inline-flex w-full items-center justify-between border border-white/28 bg-white/14 px-4 py-2.5 text-left text-[0.98rem] font-normal uppercase tracking-[0.18em] text-white/88 transition hover:border-white/44 hover:bg-white/22 hover:text-white"
+                                >
+                                    <span>Film</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="{% url 'content:fragments-list' %}"
+                                    data-nav-link
+                                    class="font-english inline-flex w-full items-center justify-between border border-white/28 bg-white/14 px-4 py-2.5 text-left text-[0.98rem] font-normal uppercase tracking-[0.18em] text-white/88 transition hover:border-white/44 hover:bg-white/22 hover:text-white"
+                                >
+                                    <span>Fragments</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="{% url 'content:thoughts-list' %}"
+                                    data-nav-link
+                                    class="font-english inline-flex w-full items-center justify-between border border-white/28 bg-white/14 px-4 py-2.5 text-left text-[0.98rem] font-normal uppercase tracking-[0.18em] text-white/88 transition hover:border-white/44 hover:bg-white/22 hover:text-white"
+                                >
+                                    <span>Thoughts</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="{% url 'content:about' %}"
+                                    data-nav-link
+                                    class="font-english inline-flex w-full items-center justify-between border border-white/28 bg-white/14 px-4 py-2.5 text-left text-[0.98rem] font-normal uppercase tracking-[0.18em] text-white/88 transition hover:border-white/44 hover:bg-white/22 hover:text-white"
+                                >
+                                    <span>About</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <div class="mt-auto pt-4 text-sm text-white/68">
+                        <p class="flex flex-col gap-1">
+                            <span class="font-english font-normal uppercase tracking-[0.24em]">{{ home_owner_name }}</span>
+                            <span>&copy; {% now "Y" %}</span>
+                        </p>
+                    </div>
+                </div>
+            </header>
+        {% else %}
+            <button
+                type="button"
+                data-nav-toggle
+                aria-controls="site-nav-panel"
+                aria-expanded="false"
+                aria-label="展开主导航"
+                class="fixed left-4 top-4 z-50 inline-flex h-11 w-11 items-center justify-center border border-sage bg-white/95 text-xl text-moss shadow-paper backdrop-blur-sm transition hover:border-moss/45 hover:bg-white hover:text-ink sm:left-6 sm:top-6"
+            >
+                <span aria-hidden="true">→</span>
+            </button>
+
+            <div
+                data-nav-backdrop
+                class="pointer-events-none fixed inset-0 z-40 hidden bg-[#d6e1ec]/44 backdrop-blur-[2px]"
+            ></div>
+
+            <aside
+                id="site-nav-panel"
+                data-expandable-nav="true"
+                aria-hidden="true"
+                class="pointer-events-none invisible fixed inset-y-0 left-0 z-50 flex w-[min(20rem,calc(100vw-2rem))] -translate-x-[calc(100%+1.5rem)] flex-col border-r border-sage bg-white/96 px-5 py-4 opacity-0 shadow-paper backdrop-blur-md transition duration-300 sm:px-6 sm:py-6"
+            >
+                <div class="flex items-start justify-end gap-4 border-b border-sage/80 pb-5">
+                    <button
+                        type="button"
+                        data-nav-close
+                        aria-label="收起主导航"
+                        class="inline-flex h-10 w-10 items-center justify-center border border-sage bg-surface text-lg text-moss transition hover:border-moss/45 hover:text-ink"
+                    >
+                        <span aria-hidden="true">←</span>
+                    </button>
+                </div>
+
+                <nav aria-label="主导航" class="mt-6">
+                        <ul class="space-y-2.5 text-[0.95rem]">
+                        <li>
+                            <a
+                                href="{% url 'content:home' %}"
+                                data-nav-link
+                                    class="font-english inline-flex w-full items-center justify-between border border-sage bg-surface px-4 py-3 text-left text-[1rem] font-normal uppercase tracking-[0.18em] text-ink/78 transition hover:border-moss/40 hover:bg-[#fbfcfe] hover:text-ink"
+                            >
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="{% url 'content:music-list' %}"
+                                data-nav-link
+                                    class="font-english inline-flex w-full items-center justify-between border border-sage bg-surface px-4 py-3 text-left text-[1rem] font-normal uppercase tracking-[0.18em] text-ink/78 transition hover:border-moss/40 hover:bg-[#fbfcfe] hover:text-ink"
+                            >
+                                <span>Music</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="{% url 'content:film-list' %}"
+                                data-nav-link
+                                    class="font-english inline-flex w-full items-center justify-between border border-sage bg-surface px-4 py-3 text-left text-[1rem] font-normal uppercase tracking-[0.18em] text-ink/78 transition hover:border-moss/40 hover:bg-[#fbfcfe] hover:text-ink"
+                            >
+                                <span>Film</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="{% url 'content:fragments-list' %}"
+                                data-nav-link
+                                    class="font-english inline-flex w-full items-center justify-between border border-sage bg-surface px-4 py-3 text-left text-[1rem] font-normal uppercase tracking-[0.18em] text-ink/78 transition hover:border-moss/40 hover:bg-[#fbfcfe] hover:text-ink"
+                            >
+                                <span>Fragments</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="{% url 'content:thoughts-list' %}"
+                                data-nav-link
+                                    class="font-english inline-flex w-full items-center justify-between border border-sage bg-surface px-4 py-3 text-left text-[1rem] font-normal uppercase tracking-[0.18em] text-ink/78 transition hover:border-moss/40 hover:bg-[#fbfcfe] hover:text-ink"
+                            >
+                                <span>Thoughts</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="{% url 'content:about' %}"
+                                data-nav-link
+                                    class="font-english inline-flex w-full items-center justify-between border border-sage bg-surface px-4 py-3 text-left text-[1rem] font-normal uppercase tracking-[0.18em] text-ink/78 transition hover:border-moss/40 hover:bg-[#fbfcfe] hover:text-ink"
+                            >
+                                <span>About</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="mt-auto border-t border-sage/80 pt-5 text-sm text-ink/58">
+                    <p class="flex flex-col gap-1">
+                        <span class="font-english font-normal uppercase tracking-[0.24em]">Wentong Zou</span>
+                        <span>&copy; {% now "Y" %}</span>
+                    </p>
+                </div>
+            </aside>
+        {% endif %}
+
+        <main class="{% if section_slug == 'home' %}min-h-screen{% else %}mx-auto flex min-h-screen w-full max-w-[1480px] flex-col px-5 pb-5 pt-20 sm:px-8 sm:pb-7 sm:pt-24 lg:px-10 lg:pb-8{% endif %}">
+            <div class="{% if section_slug == 'home' %}{% else %}flex-1{% endif %}">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+
+    <script>
+        (function () {
+            var currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
+            var links = document.querySelectorAll("[data-nav-link]");
+
+            links.forEach(function (link) {
+                var linkPath = new URL(link.href, window.location.origin).pathname.replace(/\/+$/, "") || "/";
+                var isActive = currentPath === linkPath;
+
+                link.classList.remove(
+                    "bg-surface",
+                    "text-ink",
+                    "border-moss/70",
+                    "shadow-paper"
+                );
+
+                if (isActive) {
+                    link.classList.add("bg-surface", "text-ink", "border-moss/70", "shadow-paper");
+                    link.setAttribute("aria-current", "page");
+                }
+            });
+
+            var toggleButton = document.querySelector("[data-nav-toggle]");
+            var closeButton = document.querySelector("[data-nav-close]");
+            var panel = document.querySelector("[data-expandable-nav='true']");
+            var backdrop = document.querySelector("[data-nav-backdrop]");
+
+            if (!toggleButton || !closeButton || !panel || !backdrop) {
+                return;
+            }
+
+            function setOpenState(isOpen) {
+                panel.classList.toggle("-translate-x-[calc(100%+1.5rem)]", !isOpen);
+                panel.classList.toggle("invisible", !isOpen);
+                panel.classList.toggle("opacity-0", !isOpen);
+                panel.classList.toggle("pointer-events-none", !isOpen);
+                backdrop.classList.toggle("hidden", !isOpen);
+                backdrop.classList.toggle("pointer-events-none", !isOpen);
+                toggleButton.setAttribute("aria-expanded", isOpen ? "true" : "false");
+                panel.setAttribute("aria-hidden", isOpen ? "false" : "true");
+                document.body.classList.toggle("overflow-hidden", isOpen);
+            }
+
+            toggleButton.addEventListener("click", function () {
+                var isOpen = toggleButton.getAttribute("aria-expanded") !== "true";
+                setOpenState(isOpen);
+            });
+
+            closeButton.addEventListener("click", function () {
+                setOpenState(false);
+            });
+
+            backdrop.addEventListener("click", function () {
+                setOpenState(false);
+            });
+
+            document.addEventListener("keydown", function (event) {
+                if (event.key === "Escape") {
+                    setOpenState(false);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

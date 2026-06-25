@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}{{ item.title|default:item.location|default:"照片详情" }} | {{ page_title }}{% endblock %}
+
+{% block content %}
+<section class="space-y-9 sm:space-y-11">
+    <div class="flex flex-col gap-4 border-b border-sage pb-7 sm:flex-row sm:items-center sm:justify-between sm:pb-8">
+        <a
+            href="{% url 'content:fragments-list' %}"
+            class="font-english inline-flex w-fit items-center gap-2 border-b border-moss/35 pb-1 text-[0.8rem] font-light uppercase tracking-[0.34em] text-moss/82 transition-all duration-500 hover:-translate-x-1 hover:border-moss hover:text-ink"
+        >
+            <span aria-hidden="true">←</span>
+            <span>Back</span>
+        </a>
+        <p class="font-english text-[0.94rem] font-light uppercase tracking-[0.2em] text-moss">
+            Fragments / {{ item.location|default:"Archive" }}
+        </p>
+    </div>
+
+    <article class="overflow-hidden border border-sage bg-white shadow-paper">
+        <div class="grid gap-0 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)]">
+            <div class="relative border-b border-sage bg-panel lg:border-b-0 lg:border-r">
+                <img
+                    src="{{ item.image.url }}"
+                    alt="{{ item.title|default:item.location|default:'照片碎片' }}"
+                    class="h-full min-h-[24rem] w-full object-cover lg:min-h-[40rem]"
+                >
+                <div class="absolute bottom-4 right-4">
+                    <a
+                        href="{{ item.image.url }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="font-english inline-flex items-center border border-white/55 bg-[#eef4f9]/84 px-4 py-2 text-[0.8rem] font-light uppercase tracking-[0.32em] text-ink shadow-sm backdrop-blur-sm transition hover:border-white hover:bg-white"
+                    >
+                        View Original
+                    </a>
+                </div>
+            </div>
+            <div class="flex flex-col gap-8 p-5 sm:p-7 lg:p-10">
+                <div class="space-y-5">
+                    <p class="font-english text-[0.8rem] font-light uppercase tracking-[0.4em] text-moss/78">
+                        Fragment Detail
+                    </p>
+                    <h1 class="font-display text-[2.35rem] font-light uppercase leading-[0.9] tracking-[0.12em] text-ink sm:text-[3.2rem] lg:text-[3.75rem]">
+                        {{ item.title|default:item.location|default:"未命名照片" }}
+                    </h1>
+                </div>
+
+                <div class="grid gap-3 border-y border-sage py-6 text-[0.78rem] font-light uppercase tracking-[0.18em] text-moss sm:grid-cols-2">
+                    <div class="border border-sage bg-panel/85 px-4 py-4">
+                        <p class="font-english text-moss/80">拍摄时间</p>
+                        <p class="mt-2 text-[0.95rem] tracking-[0.08em] text-ink">
+                            {% if item.shot_at %}
+                                {{ item.shot_at|date:"Y.m.d H:i" }}
+                            {% else %}
+                                时间未记录
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="border border-sage bg-panel/85 px-4 py-4">
+                        <p class="font-english text-moss/80">地点标签</p>
+                        <p class="mt-2 text-[0.95rem] tracking-[0.08em] text-ink">{{ item.location|default:"地点未记录" }}</p>
+                    </div>
+                    <div class="border border-sage bg-panel/85 px-4 py-4">
+                        <p class="font-english text-moss/80">人物信息</p>
+                        <p class="mt-2 text-[0.95rem] tracking-[0.08em] text-ink">{{ item.people_info|default:"未填写" }}</p>
+                    </div>
+                    <div class="border border-sage bg-panel/85 px-4 py-4">
+                        <p class="font-english text-moss/80">收录时间</p>
+                        <p class="mt-2 text-[0.95rem] tracking-[0.08em] text-ink">{{ item.created_at|date:"Y.m.d H:i" }}</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <p class="font-english text-[0.8rem] font-light uppercase tracking-[0.34em] text-moss/78">
+                        简介
+                    </p>
+                    <div class="text-[0.97rem] font-light leading-8 text-ink/72 sm:text-[1.02rem]">
+                        {% if item.summary %}
+                            {{ item.summary|linebreaks }}
+                        {% else %}
+                            <p>这张照片还没有补充简介。</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+</section>
+{% endblock %}
