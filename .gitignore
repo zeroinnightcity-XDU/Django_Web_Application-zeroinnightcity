@@ -38,3 +38,6 @@ media/**
 .vscode/
 Thumbs.db
 Desktop.ini
+!media/content/media_items/covers/Blur_-_13.png
+!media/content/media_items/covers/Clairo_-_Immunity.png
+!media/content/site_profile/home/首页背景图-三人组_YnOjfGc.jpg
